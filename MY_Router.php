@@ -216,6 +216,8 @@ class Modules {
 		$file = array_pop($segments);
 		if ($base == 'libraries/')
 			$file = ucfirst($file);
+		else if ($base == 'models/')
+			$file = strtolower($file);
 		$file_ext = strpos($file, '.') ? $file : $file . EXT;
 
 		$lang && $lang .= '/';
