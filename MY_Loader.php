@@ -48,7 +48,7 @@ class MY_Loader extends CI_Loader {
 		parent::__construct();
 		self::$APP = CI_Base::get_instance();
 		self::$APP->config = new MX_Config();
-		self::$APP->lang = new MX_Language();
+		self::$APP->lang = new MX_Lang();
 		$this->_module = self::$APP->router->fetch_module();
 	}
 
@@ -171,7 +171,7 @@ class MY_Loader extends CI_Loader {
 
 		list($path, $model) = Modules::find($model, $this->_module, 'models/');
 
-		if(CI_VERSION < 2)
+		if (CI_VERSION < 2)
 		{
 			class_exists('Model', FALSE) OR load_class('Model', FALSE);
 		}
@@ -391,12 +391,12 @@ class MX_Config extends CI_Config {
 
 }
 
-if(CI_VERSION < 2)
+if (CI_VERSION < 2)
 {
 	class CI_Lang extends CI_Language {}
 }
 
-class MX_Language extends CI_Lang
+class MX_Lang extends CI_Lang
 {
 	public function load($langfile, $lang = '', $return = FALSE, $_module = NULL)
 	{
@@ -424,7 +424,7 @@ class MX_Language extends CI_Lang
 
 		if ($path === FALSE)
 		{
-			if (file_exists(APPPATH . 'language/' . $idiom . '/' . $langfile . '_lang.php'))
+			if (file_exists(APPPATH.'language/'.$idiom.'/'.$langfile.'_lang'.EXT))
 			{
 				if ($lang = parent::load($langfile, $lang, $return))
 				{
@@ -442,7 +442,7 @@ class MX_Language extends CI_Lang
 
 		else
 		{
-			if($lang = Modules::load_file($_langfile, $path, 'lang'))
+			if ($lang = Modules::load_file($_langfile, $path, 'lang'))
 			{
 				if ($return) return $lang;
 				$this->language = array_merge($this->language, $lang);
