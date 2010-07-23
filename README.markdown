@@ -29,6 +29,7 @@ Upcoming Features
 Version History
 ---------------
 
+* _2.2_ Fixed CI 2.0 support & models can be loaded with upper case or lowercase.
 * _2.1_ Supports both CodeIgniter 1.7.x and 2.0
 * _2.0_ Tweaked to support CodeIgniter 2.0
 * _1.12_ Fixed a few bugs

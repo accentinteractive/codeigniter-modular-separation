@@ -17,7 +17,7 @@ define('FALLBACK_LANGUAGE', 'english');
  * Install this file as application/libraries/MY_Loader.php
  *
  * @copyright 	Copyright (c) Wiredesignz 2010-03-01
- * @version 	2.0
+ * @version 	2.2
  * @modified	Phil Sturgeon
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy

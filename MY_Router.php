@@ -21,7 +21,7 @@ Modules::$locations = array(
  * Install this file as application/libraries/MY_Router.php
  *
  * @copyright 	Copyright (c) Wiredesignz 2010-03-01
- * @version 	2.1
+ * @version 	2.2
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -175,7 +175,6 @@ class Modules {
 
 		if ($type === 'other')
 		{
-
 			if (class_exists($file, FALSE))
 			{
 				log_message('debug', "File already loaded: {$location}");
