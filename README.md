@@ -24,7 +24,7 @@ view structure within module sub-folders.
 
 ## Changelog
 
-* _2.3_ Deprecated $route['404'] and added support for CI 2.0's $route['404_override'].
+* _2.3_ Autoloaded libs can now be in application/core, $route['404'] is deprecated and $route['404_override'] is now supported.
 * _2.2_ Fixed CI 2.0 support & models can be loaded with upper case or lowercase.
 * _2.1_ Supports both CodeIgniter 1.7.x and 2.0
 * _2.0_ Tweaked to support CodeIgniter 2.0
