@@ -17,7 +17,7 @@ define('FALLBACK_LANGUAGE', 'english');
  * Install this file as application/libraries/MY_Loader.php
  *
  * @copyright 	Copyright (c) Wiredesignz 2010-03-01
- * @version 	2.2
+ * @version 	2.3
  * @modified	Phil Sturgeon
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -339,7 +339,13 @@ class MY_Loader extends CI_Loader {
 
 }
 
-class MX_Config extends CI_Config {
+// If they dont have a MY_Config, make one to avoid breaking MX_Config extends MY_Config
+if (!class_exists('MY_Config'))
+{
+	class MY_Config extends CI_Config {}
+}
+
+class MX_Config extends MY_Config {
 
 	public function load($file = '', $use_sections = FALSE, $fail_gracefully = FALSE, $_module = NULL)
 	{

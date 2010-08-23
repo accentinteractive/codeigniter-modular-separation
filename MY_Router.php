@@ -21,7 +21,7 @@ Modules::$locations = array(
  * Install this file as application/libraries/MY_Router.php
  *
  * @copyright 	Copyright (c) Wiredesignz 2010-03-01
- * @version 	2.2
+ * @version 	2.3
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -59,11 +59,20 @@ class MY_Router extends CI_Router {
 			return $located;
 		}
 
+		// route 404 is now deprecated, use 404_override
+		if(isset($this->routes['404']))
+		{
+			$this->routes['404_override'] = $this->routes['404'];
+			unset($this->routes['404']);
+		}
+
 		/* use a default 404 controller */
-		if (isset($this->routes['404']) AND $segments = explode('/', $this->routes['404']))
+		if (isset($this->routes['404_override']) AND $segments = explode('/', $this->routes['404_override']))
 		{
 			if ($located = $this->locate($segments))
+			{
 				return $located;
+			}
 		}
 
 		/* no controller found */
@@ -161,7 +170,12 @@ class Modules {
 			return;
 		}
 
-		if (is_file($location = APPPATH . 'libraries/' . $class . EXT))
+		if (is_file($location = APPPATH . 'core/' . $class . EXT))
+		{
+			include_once $location;
+		}
+
+		else if (is_file($location = APPPATH . 'libraries/' . $class . EXT))
 		{
 			include_once $location;
 		}
@@ -213,10 +227,14 @@ class Modules {
 		$segments = explode('/', $file);
 
 		$file = array_pop($segments);
-		if ($base == 'libraries/')
+		if ($base == 'core/' OR $base == 'libraries/')
+		{
 			$file = ucfirst($file);
+		}
 		else if ($base == 'models/')
+		{
 			$file = strtolower($file);
+		}
 		$file_ext = strpos($file, '.') ? $file : $file . EXT;
 
 		$lang && $lang .= '/';
@@ -230,12 +248,13 @@ class Modules {
 
 		foreach (Modules::$locations as $location => $offset)
 		{
-
 			foreach ($modules as $module => $subpath)
 			{
 				$fullpath = $location . $module . '/' . $base . $lang . $subpath;
 				if (is_file($fullpath . $file_ext))
+				{
 					return array($fullpath, $file);
+				}
 			}
 		}
 
@@ -269,7 +288,6 @@ class Modules {
 		/* parse module routes */
 		foreach (self::$routes[$module] as $key => $val)
 		{
-
 			$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $key));
 
 			if (preg_match('#^' . $key . '$#', $uri))
